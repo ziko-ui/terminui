@@ -386,4 +386,4 @@ pnpm build       # tsup
 
 ## License
 
-MIT
+Apache-2.0

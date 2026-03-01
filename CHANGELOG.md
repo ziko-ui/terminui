@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/ahmadawais/terminui/compare/0.1.0...0.2.0) (2026-03-01)
+
+### Features
+
+* example x cover ([758c940](https://github.com/ahmadawais/terminui/commit/758c940fb8b9341c33cf38f603c383a0201d2501))
+* examples interactive ([8d9b2ba](https://github.com/ahmadawais/terminui/commit/8d9b2ba37782b3b377bf82b15705abd4021bf298))
+
+### Documentation
+
+* add ASCII diagrams for all widgets ([f865219](https://github.com/ahmadawais/terminui/commit/f865219cc1f1db8b52f1becdf380ad12e1527959))
+
 ## 0.1.0 (2026-03-01)
 
 ### Features

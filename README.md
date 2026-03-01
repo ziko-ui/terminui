@@ -1,3 +1,5 @@
+![terminui](https://raw.githubusercontent.com/AhmadAwais/terminui/main/.github/terminui.png)
+
 # terminui
 
 A fast, functional TypeScript library for building terminal user interfaces.
@@ -443,6 +445,9 @@ npx tsx examples/alternate-screen.ts
 
 # Live weather dashboard (Open-Meteo)
 npx tsx examples/weather-dashboard.ts --city "New York"
+
+# One-shot weather snapshot (non-animated)
+npx tsx examples/weather-dashboard.ts --city "New York" --once
 ```
 
 ## Dev
@@ -465,4 +470,4 @@ pnpm build       # tsup
 
 ## License
 
-Apache-2.0
+Apache-2.0 - [Ahmad Awais](https://x.com/MrAhmadAwais)

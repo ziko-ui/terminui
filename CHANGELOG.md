@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.1](https://github.com/ahmadawais/terminui/compare/0.3.0...0.3.1) (2026-03-02)
+
+### Features
+
+* repo link in package.json ([e4e4391](https://github.com/ahmadawais/terminui/commit/e4e4391330fce076cf14917be9a35a96586b7c0c))
+
 ## [0.3.0](https://github.com/ahmadawais/terminui/compare/0.2.0...0.3.0) (2026-03-02)
 
 ### Features

